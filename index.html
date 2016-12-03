@@ -1,62 +1,64 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="santaApp">
-<script src="https://code.angularjs.org/1.4.10/angular.js"></script>
-<link rel="stylesheet" type="text/css" href="santa.css">
-
+<html lang="en" data-ng-app="santaApp">
+<head>
+	<title>Santa Project</title>
+	<meta charset="UTF-8"> 
+	<script src="https://code.angularjs.org/1.4.10/angular.js"></script>
+	<link rel="stylesheet" type="text/css" href="santa.css">
+</head>
 <body>
 <h1>Santa's headquarter</h1>
-<div ng-controller="santaCtrl">
 <form>
-<div class="radioList" width="30%">
-<input type="radio" name="selectBehav" ng-model="selectBehav" value = "Nice">Nice</input>
-<input type="radio" name="selectBehav" ng-model="selectBehav" value = "Naughty" >Naughty</input>
-<input type="radio" name="selectBehav" ng-model="selectBehav" value = "" >All</input>
+<div data-ng-controller="santaCtrl">
+<div class="radioList">
+<span>Nice</span><input type="radio" name="selectBehav" data-ng-model="selectBehav" value = "Nice" />
+<span>Naughty</span><input type="radio" name="selectBehav" data-ng-model="selectBehav" value = "Naughty" />
+<span>All</span><input type="radio" name="selectBehav" data-ng-model="selectBehav" value = "" />
 </div>
 <table>
 	<tr>
-		<th class="tooltip" ng-click="orderByMe('name')" hover="Sort by Name">Name<span class="tooltiptext">Sort by Name</span></th>
-		<th class="tooltip" ng-click="orderByMe('wishList')" hover="Sort by Wish List">Wish List<span class="tooltiptext">Sort by WishList</span></th>
-		<th class="tooltip" ng-click="orderByMe('behavior')" hover="Sort by Behavior">Behavior<span class="tooltiptext">Sort by Behavior</span></th>
+		<th class="tooltip" data-ng-click="orderByMe('name')">Name<span class="tooltiptext">Sort by Name</span></th>
+		<th class="tooltip" data-ng-click="orderByMe('wishList')">Wish List<span class="tooltiptext">Sort by WishList</span></th>
+		<th class="tooltip" data-ng-click="orderByMe('behavior')">Behavior<span class="tooltiptext">Sort by Behavior</span></th>
 	</tr>
-	<tr ng-repeat="x in kids | filter : behavior= selectBehav | orderBy:myOrderBy" ng-dblclick="toggleEditMode()" ng-mouseover= "showX = true" ng-mouseleave="showX = false">
+	<tr data-ng-repeat="x in kids | filter : behavior= selectBehav | orderBy:myOrderBy" data-ng-dblclick="toggleEditMode()" data-ng-mouseover= "showX = true" data-ng-mouseleave="showX = false">
 		<td>{{x.name}}</td>
 		<td>{{x.wishList}}</td>
-		<td>{{x.behavior}}<span ng-show="showX" class="xMarker" ng-click="removeKid($index)">&times;</span></td>
+		<td>{{x.behavior}}<span data-ng-show="showX" class="xMarker" data-ng-click="removeKid($index)">&times;</span></td>
 	</tr>
 </table>
 
-<input ng-model="newName" tabindex="1"/>
-<input ng-model="newWish" tabindex="2"/>
-<input type="radio" name="newBehav" ng-model="newBehav" value = "Nice" tabindex="3">Nice</input>
-<input type="radio" name="newBehav" ng-model="newBehav" value = "Naughty" >Naughty</input>
-<button ng-click="addNewChild()">Add</button>
+<input data-ng-model="newName" tabindex="1"/>
+<input data-ng-model="newWish" tabindex="2"/>
+<input type="radio" name="newBehav" data-ng-model="newBehav" value = "Nice" tabindex="3" />Nice
+<input type="radio" name="newBehav" data-ng-model="newBehav" value = "Naughty" />Naughty
+<button data-ng-click="addNewChild()">Add</button>
 
-<div id="shoppingCart" ng-show="showShoppingCart">
+<div id="shoppingCart" data-ng-show="showShoppingCart">
 	<h2> Santa's shopping cart </h2> 
 	<ul>
-		<li ng-repeat="kid in kids | filter : behavior= 'nice'">{{kid.wishList}}</li>
+		<li data-ng-repeat="kid in kids | filter : behavior= 'nice'">{{kid.wishList}}</li>
 	</ul>
-	<button class="closeButton" ng-click="showShoppingCart = false">Close</button>
+	<button class="closeButton" data-ng-click="showShoppingCart = false">Close</button>
 </div>
 
-<div id="coalBagDiv" ng-show="showCoalBag">
+<div id="coalBagDiv" data-ng-show="showCoalBag">
 	<h2> Santa's Coal bag </h2> 
 	<p> Santa needs {{(kids|filter:behavior= 'naughty').length}} lumps of coal in his bag</p>
-	<button class="closeButton" ng-click="showCoalBag = false">Close</button>
+	<button class="closeButton" data-ng-click="showCoalBag = false">Close</button>
 </div>
 
-<div id="coalBagDiv" ng-show="showJsonDiv">
+<div id="jsonDiv" data-ng-show="showJsonDiv">
 	<h2> Santa's Json </h2> 
 	<p> {{jsonString}}</p>
-	<button class="closeButton" ng-click="showJsonDiv = false">Close</button>
+	<button class="closeButton" data-ng-click="showJsonDiv = false">Close</button>
 </div>
 
-<img id="presentImg" ng-click="showShoppingCart = true" src="Santa_image/presents.png" alt="Image of Santa's presents bag"/>
-<img src="Santa_image/coal3.png" id="coalImg" ng-click="showCoalBag = true" alt="Image of Santa's cart full of coal"/>
-<img src="Santa_image/curlyObject.png" id="curlyImg" ng-click="createJson()" alt="Image of red curly braces"/>
-
-<form>
+<img id="presentImg" data-ng-click="showShoppingCart = true" src="Santa_image/presents.png" alt="Image of Santa's presents bag"/>
+<img src="Santa_image/coal3.png" id="coalImg" data-ng-click="showCoalBag = true" alt="Image of Santa's cart full of coal"/>
+<img src="Santa_image/curlyObject.png" id="curlyImg" data-ng-click="createJson()" alt="Image of red curly braces"/>
 </div>
+</form>
 <script src="santaApp.js"></script>
 <script src="santaCtrl.js"></script>
 
